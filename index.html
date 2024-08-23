@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pantry Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: #4CAF50;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+            position: relative;
+            margin-top: 60px; /* Adjust for navbar height */
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header h1 i {
+            margin-right: 10px;
+        }
+
+        nav {
+            background: #333;
+            color: #fff;
+            padding: 0.5rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: top 0.3s;
+        }
+
+        nav.sticky {
+            top: 0;
+        }
+
+        nav.hidden {
+            top: -60px; /* Height of the navbar to hide it completely */
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        nav .logo i {
+            margin-right: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li a {
+            color: #000;
+            text-decoration: none;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li a i {
+            margin-right: 8px;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        section {
+            padding: 2rem;
+            text-align: center;
+            margin-top: 60px; /* Adjust for navbar height */
+            flex: 1; /* Allows sections to grow and push footer to the bottom */
+        }
+
+        section img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-bottom: 2px solid #4CAF50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h2 i {
+            margin-right: 10px;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-group input,
+        .form-group button {
+            width: 100%;
+            max-width: 600px;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            color: #000; /* Button text color */
+        }
+
+        .form-group input {
+            font-size: 1rem;
+        }
+
+        .form-group button {
+            background: #4CAF50;
+            color: #000; /* Button text color */
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-group button i {
+            margin-right: 5px;
+        }
+
+        .form-group button:hover {
+            background: #45a049;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            background: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          
+        }
+
+        ul li span {
+            flex: 1;
+        }
+
+        ul li i {
+            margin-left: 10px;
+            color: #999;
+            cursor: pointer;
+        }
+
+        ul li i:hover {
+            color: #333;
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                flex-direction: column;
+                align-items: flex-end;
+                position: absolute;
+                top: 60px; /* Adjust based on navbar height */
+                background: #333;
+                width: 100%;
+                right: 0;
+                z-index: 1000;
+              
+            }
+
+            nav ul.show {
+                display: flex;
+               
+            }
+
+            nav ul li {
+                margin: 10px 0;
+                text-align: right;
+                
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .form-group input,
+            .form-group button {
+                font-size: 0.9rem;
+                width: 90%;
+            }
+
+            ul li {
+                flex-direction: column;
+            }
+
+            ul li i {
+                margin: 10px 0 0 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav id="navbar">
+        <div class="logo"><i class="fas fa-utensils"></i> PMS</div>
+        <div class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></div>
+        <ul id="nav-links">
+            <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#about"><i class="fas fa-info-circle"></i> About Us</a></li>
+            <li><a href="#inventory"><i class="fas fa-list"></i> Inventory</a></li>
+            <li><a href="#recipes"><i class="fas fa-utensils"></i> Recipes</a></li>
+            <li><a href="#shopping"><i class="fas fa-shopping-cart"></i> Shopping List</a></li>
+            <li><a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1><i class="fas fa-utensils"></i> Pantry Management System</h1>
+    </header>
+
+    <section id="home">
+        <h2><i class="fas fa-home"></i> Welcome to the Pantry Management System</h2>
+        <p>This system helps you manage your kitchen pantry effectively. It tracks your inventory, suggests recipes based on available ingredients, and generates shopping lists for items you need to restock. With a user-friendly interface and practical features, it simplifies pantry management, making your daily cooking and shopping tasks more efficient.</p>
+        <p>Our goal is to streamline your kitchen organization and ensure you always have the essentials on hand. Whether you're cooking for yourself or your family, our system offers a comprehensive solution to keep your pantry well-stocked and your meals well-planned.</p>
+        <p>Explore the features and see how our system can make your kitchen management easier. From tracking inventory to finding recipes, everything you need is at your fingertips.</p>
+        <p>Stay organized and make cooking a breeze with our Pantry Management System. It's designed to help you save time and reduce food waste, ensuring you get the most out of your pantry.</p>
+        <p>Get started today and experience the benefits of a well-managed pantry. Your kitchen will thank you!</p>
+        <img src="home.jpg" alt="Pantry Management Home">
+    </section>
+
+    <section id="about">
+        <h2><i class="fas fa-info-circle"></i> About Us</h2>
+        <p>We are a passionate team of developers and kitchen enthusiasts dedicated to creating innovative solutions for everyday tasks. Our mission is to simplify kitchen management with technology, making it easier for individuals and families to stay organized and enjoy cooking.</p>
+        <p>Our Pantry Management System is the result of extensive research and user feedback, designed to provide a seamless and intuitive experience. We continuously improve our product based on user input and advancements in technology.</p>
+        <p>Thank you for choosing our system. We hope it brings convenience and joy to your kitchen routine.</p>
+        <img src="about.jpg" alt="About Us">
+    </section>
+
+    <section id="inventory">
+        <h2><i class="fas fa-list"></i> Inventory Tracking</h2>
+        <p>Manage your pantry inventory with ease. Add, edit, and delete items to keep track of what's in stock. Our system allows you to categorize items, set expiration dates, and monitor usage to ensure you never run out of essentials.</p>
+        <div class="form-group">
+            <input type="text" id="item-name" placeholder="Enter item name">
+            <input type="number" id="item-quantity" placeholder="Enter quantity">
+            <input type="date" id="item-expiry" placeholder="Enter expiry date">
+            <button id="add-item"><i class="fas fa-plus"></i> Add Item</button>
+        </div>
+        <ul id="inventory-list">
+            <!-- Inventory items will be listed here -->
+        </ul>
+        <img src="Tracking.webp" alt="About Us">
+    </section>
+
+    <section id="recipes">
+        <h2><i class="fas fa-utensils"></i> Recipe Suggestions</h2>
+        <p>Discover recipes based on the ingredients you have. Our system provides a variety of meal options tailored to your pantry inventory. Explore new dishes and get cooking with the items you already have.</p>
+        <div class="form-group">
+            <input type="text" id="recipe-search" placeholder="Search for recipes">
+            <button id="search-recipes"><i class="fas fa-search"></i> Search</button>
+        </div>
+        <div id="recipe-results">
+            <!-- Recipe suggestions will be displayed here -->
+        </div>
+        <img src="suggestion.jpg" alt="About Us">
+    </section>
+
+    <section id="shopping">
+        <h2><i class="fas fa-shopping-cart"></i> Shopping List</h2>
+        <p>Create and manage your shopping list for items you need to buy. Add items directly from your inventory or manually input new ones. Stay organized and make your shopping trips more efficient.</p>
+        <div class="form-group">
+            <input type="text" id="shopping-item" placeholder="Enter item to buy">
+            <button id="add-to-shopping-list"><i class="fas fa-plus"></i> Add to List</button>
+        </div>
+        <ul id="shopping-list">
+            <!-- Shopping list items will be listed here -->
+        </ul>
+        <img src="list.webp" alt="About Us">
+    </section>
+
+    <section id="contact">
+        <h2><i class="fas fa-envelope"></i> Contact Us</h2>
+        <p>If you have any questions or feedback, feel free to reach out to us. We value your input and are here to help with any issues or suggestions you may have.</p>
+        <div class="form-group">
+            <input type="text" id="contact-name" placeholder="Your Name">
+            <input type="email" id="contact-email" placeholder="Your Email">
+            <textarea id="contact-message" placeholder="Your Message"></textarea>
+            <button id="send-message"><i class="fas fa-paper-plane"></i> Send Message</button>
+        </div>
+        <img src="contact.png" alt="About Us">
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Pantry Management System By Viraj Tupe. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Sticky navbar and hide/show on scroll
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('navbar');
+        const navLinks = document.getElementById('nav-links');
+        const menuToggle = document.getElementById('menu-toggle');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            if (currentScroll > lastScrollTop) {
+                navbar.classList.add('hidden');
+            } else {
+                navbar.classList.remove('hidden');
+            }
+            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+        });
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+    </script>
+
+</body>
+
+</html>
