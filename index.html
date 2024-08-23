@@ -363,25 +363,94 @@
     </footer>
 
     <script>
-        // Sticky navbar and hide/show on scroll
-        let lastScrollTop = 0;
-        const navbar = document.getElementById('navbar');
-        const navLinks = document.getElementById('nav-links');
-        const menuToggle = document.getElementById('menu-toggle');
+        // Inventory Tracking
+        document.getElementById('add-item').addEventListener('click', () => {
+            const name = document.getElementById('item-name').value;
+            const quantity = document.getElementById('item-quantity').value;
+            const expiry = document.getElementById('item-expiry').value;
 
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-            if (currentScroll > lastScrollTop) {
-                navbar.classList.add('hidden');
+            if (name && quantity && expiry) {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <span>${name} - Quantity: ${quantity} - Expiry: ${expiry}</span>
+                    <i class="fas fa-edit" onclick="editItem(this)"></i>
+                    <i class="fas fa-trash" onclick="removeItem(this)"></i>
+                `;
+                document.getElementById('inventory-list').appendChild(listItem);
+                document.getElementById('item-name').value = '';
+                document.getElementById('item-quantity').value = '';
+                document.getElementById('item-expiry').value = '';
+                // Add functionality to check for low inventory or expiration
             } else {
-                navbar.classList.remove('hidden');
+                alert('Please fill out all fields.');
             }
-            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
         });
 
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('show');
+        function editItem(icon) {
+            const listItem = icon.parentElement;
+            const name = prompt('Edit item name:', listItem.children[0].textContent.split(' - ')[0]);
+            const quantity = prompt('Edit quantity:', listItem.children[0].textContent.split(' - ')[1].split(': ')[1]);
+            const expiry = prompt('Edit expiry date:', listItem.children[0].textContent.split(' - ')[2].split(': ')[1]);
+
+            if (name && quantity && expiry) {
+                listItem.children[0].innerHTML = `${name} - Quantity: ${quantity} - Expiry: ${expiry}`;
+            }
+        }
+
+        function removeItem(icon) {
+            icon.parentElement.remove();
+        }
+
+        // Recipe Suggestions
+        document.getElementById('search-recipes').addEventListener('click', () => {
+            const query = document.getElementById('recipe-search').value;
+            // Simulated recipe search
+            document.getElementById('recipe-results').innerHTML = `<p>Results for "${query}": Recipe 1, Recipe 2, Recipe 3</p>`;
         });
+
+        // Shopping List Integration
+        document.getElementById('add-to-shopping-list').addEventListener('click', () => {
+            const item = document.getElementById('shopping-item').value;
+
+            if (item) {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `${item} <i class="fas fa-trash" onclick="removeItem(this)"></i>`;
+                document.getElementById('shopping-list').appendChild(listItem);
+                document.getElementById('shopping-item').value = '';
+            } else {
+                alert('Please enter an item.');
+            }
+        });
+
+        // Barcode Scanning (simulated with text input for demo)
+        document.getElementById('item-name').addEventListener('change', (event) => {
+            const barcode = event.target.value;
+            // Simulate adding item from barcode
+            console.log(`Scanned barcode: ${barcode}`);
+        });
+
+        // Nutritional Information (dummy implementation)
+        function getNutritionalInfo(item) {
+            // Dummy data for demo
+            return `Nutritional info for ${item}: Calories: 100, Protein: 2g, Fat: 0g, Carbs: 20g`;
+        }
+
+        // Meal Planning (dummy implementation)
+        function suggestMeals() {
+            return `Meal suggestions based on inventory: Meal 1, Meal 2, Meal 3`;
+        }
+
+        // Waste Reduction (dummy implementation)
+        function reduceWaste() {
+            return `Tips to reduce waste: Use items before expiry, Repurpose leftovers`;
+        }
+
+        // Multi-User Collaboration (basic demo)
+        const users = []; // List of users (for demo purposes)
+        function addUser(username) {
+            users.push(username);
+            console.log(`Added user: ${username}`);
+        }
     </script>
 
 </body>
